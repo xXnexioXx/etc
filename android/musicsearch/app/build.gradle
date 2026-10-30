@@ -1,0 +1,46 @@
+plugins {
+    id("com.android.application")
+}
+
+android {
+    namespace "com.xxnexioxx.musicsearch"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.xxnexioxx.musicsearch"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    buildFeatures {
+        buildConfig false
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+        ignoreWarnings true
+    }
+}
+
+tasks.configureEach { t ->
+    if (t.name.startsWith("lint")) {
+        t.enabled = false
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "MusicSearch.apk"
+    }
+}
